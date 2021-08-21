@@ -1,2 +1,10 @@
 # crawler-grpc-server
-crawler grpc postgresql
+crawler postgresql grpc
+
+``` bash
+# install dependencies
+yarn
+
+# run rpc server 
+yarn start
+```
