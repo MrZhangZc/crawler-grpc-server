@@ -1,0 +1,14 @@
+syntax = "proto3";
+package news;
+
+service News { 
+  rpc GetNabNews (GetNewsReq) returns (Reply) {};
+}
+
+message GetNewsReq {
+  string keyword = 1;
+}
+
+message Reply {
+  string data = 1;
+}
