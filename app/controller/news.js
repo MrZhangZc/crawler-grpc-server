@@ -24,7 +24,21 @@ module.exports = {
     deleteFile(filename)
   },
   GetNabNews: async (call, callback) => {
-    console.log(call.request)
+    const { keyword } = call.request
+    const browser = await puppeteer.launch()
+    const page = await browser.newPage();
+    await page.goto('http://sports.sina.com.cn/nba/');
+    await page.setViewport({
+      width: 1920,
+      height: 1080
+    })
+    await page.focus('.search-input')
+    await page.keyboard.sendCharacter(keyword)
+    await page.click('.search-icon')
+
+    page.on('load', async () => {
+      await browser.close();
+    })
     let err = null
     callback(err, { data: 'Hello' + call.request.keyword });
   }
