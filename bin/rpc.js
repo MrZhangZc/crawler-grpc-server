@@ -1,6 +1,6 @@
 #!/usr/bin/env node
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const app = require('../app')
-const port = normalizePort('50051')
 const server = new app.grpc.Server()
  
 const client = new app.newsProto.News(
@@ -11,7 +11,7 @@ const client = new app.newsProto.News(
 app.promisify(client)
  
 try {
-  let address = `0.0.0.0:${port}`
+  let address = `0.0.0.0:${process.env.GREP_PORT}`
   server.addService(app.newsProto.News.service, app.newsImpl)
   server.bind(address, app.grpc.ServerCredentials.createInsecure())
   server.start()
@@ -19,15 +19,4 @@ try {
 } catch (error) {
   console.error(`Crawler gRPC server error: ${error.message}`)
   process.exit(1)
-}
-
-function normalizePort (val) {
-  const port = parseInt(val, 10)
-  if (isNaN(port)) {
-    return val
-  }
-  if (port >= 0) {
-    return port
-  }
-  return false
 }

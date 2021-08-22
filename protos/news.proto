@@ -1,8 +1,13 @@
 syntax = "proto3";
 package news;
 
-service News { 
+service News {
+  rpc ScreenShot (ScreenShotReq) returns (Reply) {};
   rpc GetNabNews (GetNewsReq) returns (Reply) {};
+}
+
+message ScreenShotReq {
+  string url = 1;
 }
 
 message GetNewsReq {
