@@ -30,22 +30,35 @@ module.exports = {
     const { keyword } = call.request
     const browser = await puppeteer.launch()
     const page = await browser.newPage();
-    await page.goto('http://sports.sina.com.cn/nba/');
+    await page.goto('https://nba.hupu.com/');
     await page.setViewport({
       width: 1920,
       height: 1080
     })
-    await page.focus('.search-input')
-    await page.keyboard.sendCharacter(keyword)
-    await page.click('.search-icon')
-
-    page.on('load', async () => {
-      await browser.close();
-    })
+    const res = await page.$$eval('.list-item > a', eles => eles.map(ele => ({
+      href: ele.href,
+      title: ele.innerText,
+      data_id: ele.getAttribute('data-tid'),
+      type: 'nba',
+      from: 'hupu'
+    })))
+    // await page.focus('.search-input')
+    // await page.keyboard.sendCharacter(keyword)
+    // await page.click('.search-icon')
+    
+    // page.on('load', async () => {
+    //   await browser.close();
+    await browser.close();
     let err = null
-    callback(err, { data: 'Hello' + call.request.keyword });
+    callback(err, { data: 'success' });
+    for(let news of res){
+      const sql = 'INSERT INTO crawler("type", "title", "href", "data_id", "from") VALUES($1, $2, $3, $4, $5)'
+      const values = [news.type, news.title, news.href, news.data_id, news.from]
+      await __pgQuery(sql, values)
+    }
   },
   GetContent: async (call, callback) => {
+    // })
     err = null
     callback(err, { data: 'Hello' + call.request.keyword });
     // update article set "screen_shot" = "screen_shot"||'{今晚吃西瓜}'
