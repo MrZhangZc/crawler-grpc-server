@@ -41,5 +41,11 @@ module.exports = {
     })
     let err = null
     callback(err, { data: 'Hello' + call.request.keyword });
+  },
+  GetContent: async (call, callback) => {
+    err = null
+    callback(err, { data: 'Hello' + call.request.keyword });
+    const res = await __pgQuery('SELECT * FROM note WHERE "desc" = $1', ['晚上吃西瓜'])
+    console.log(res.rows)
   }
 }

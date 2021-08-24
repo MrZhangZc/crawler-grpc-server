@@ -2,6 +2,7 @@ const path = require('path')
 const grpc = require('grpc')
 const protoLoader = require('@grpc/proto-loader')
 const promisify = require(path.join(__dirname, 'util/grpc-promisify'))
+global.__pgQuery = require(path.join(__dirname, 'util/pg')).pgQuery
 
 const News_PATH = path.join(__dirname, 'protos/news.proto')
 
