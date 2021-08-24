@@ -4,7 +4,7 @@ const { getFileName, saveToQiNIu, deleteFile } = require('../../util/qiniu')
 
 module.exports = {
   ScreenShot: async (call, callback) => {
-    const { url } = call.request
+    const { url, dataId } = call.request
     const browser = await puppeteer.launch()
     const page = await browser.newPage();
     await page.goto(url);
@@ -21,6 +21,9 @@ module.exports = {
     }else {
       callback('qiniuerr');
     }
+    const sql = 'update article set "screen_shot" = "screen_shot"||$1 where "id" = $2'
+    const values = [`{${qnres.key}}`, dataId]
+    await __pgQuery(sql, values)
     deleteFile(filename)
   },
   GetNabNews: async (call, callback) => {
@@ -45,7 +48,8 @@ module.exports = {
   GetContent: async (call, callback) => {
     err = null
     callback(err, { data: 'Hello' + call.request.keyword });
-    const res = await __pgQuery('SELECT * FROM note WHERE "desc" = $1', ['晚上吃西瓜'])
-    console.log(res.rows)
+    // update article set "screen_shot" = "screen_shot"||'{今晚吃西瓜}'
+    const res = await __pgQuery('update article set "screen_shot" = "screen_shot"||$1 where "id" = $2' , ['{晚上吃西瓜}', '712958ef-b25c-410e-969a-a69a7101b587'])
+    console.log(res)
   }
 }

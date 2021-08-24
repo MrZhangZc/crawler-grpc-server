@@ -9,6 +9,7 @@ service News {
 
 message ScreenShotReq {
   string url = 1;
+  string dataId = 2;
 }
 
 message GetNewsReq {
