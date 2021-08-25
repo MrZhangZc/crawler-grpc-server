@@ -3,8 +3,9 @@ package news;
 
 service News {
   rpc ScreenShot (ScreenShotReq) returns (Reply) {};
-  rpc GetNabNews (GetNewsReq) returns (Reply) {};
-  rpc GetContent(GetNewsReq) returns (Reply) {};
+  rpc GetHpNabNews (GetNewsReq) returns (Reply) {};
+  rpc GetShNabNews(GetNewsReq) returns (Reply) {};
+  rpc GetNbaWebNabNews(GetNewsReq) returns (Reply) {};
 }
 
 message ScreenShotReq {
