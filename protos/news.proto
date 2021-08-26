@@ -14,7 +14,6 @@ message ScreenShotReq {
 }
 
 message GetNewsReq {
-  string keyword = 1;
 }
 
 message Reply {
