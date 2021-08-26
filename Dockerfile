@@ -9,7 +9,6 @@ COPY protos/ /app/protos
 COPY bin/ /app/bin
 COPY app/ /app/app
 
-RUN npm install -g yarn
 RUN yarn install
 
 CMD ["yarn", "start"]

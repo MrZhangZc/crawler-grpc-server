@@ -1,6 +1,6 @@
 {
   "name": "crawler-grpc-server",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "bin/rpc",
   "repository": "https://github.com/MrZhangZc/crawler-grpc-server.git",
   "author": "zzc <1761997216@qq.com>",
