@@ -1,0 +1,9 @@
+language : node_js
+node_js :
+ - 16
+script:
+  - docker build -t $DOCKER_USER/crawler-grpc-server:latest .
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - docker push $DOCKER_USER/crawler-grpc-server:latest
+  - docker tag $DOCKER_USER/crawler-grpc-server:latest $DOCKER_USER/crawler-grpc-server:`git describe --abbrev=0 --tags`
+  - docker push $DOCKER_USER/crawler-grpc-server:`git describe --abbrev=0 --tags`
