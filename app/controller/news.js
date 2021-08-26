@@ -5,7 +5,12 @@ const URL = require('url')
 
 const ScreenShot = async (call, callback) => {
   const { url, dataId } = call.request
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ]
+  })
   const page = await browser.newPage();
   await page.goto(url);
   await page.setViewport({
@@ -28,7 +33,12 @@ const ScreenShot = async (call, callback) => {
 }
 
 const GetHpNabNews = async (call, callback) => {
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ]
+  })
   const page = await browser.newPage();
   await page.goto('https://nba.hupu.com/');
   await page.setViewport({
@@ -59,7 +69,12 @@ const GetHpNabNews = async (call, callback) => {
 }
 
 const GetShNabNews = async (call, callback) => {
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ]
+  })
   const page = await browser.newPage();
   await page.goto('https://sports.sohu.com/s/nba/');
   await page.setViewport({
@@ -84,7 +99,12 @@ const GetShNabNews = async (call, callback) => {
 }
 
 const GetNbaWebNabNews = async (call, callback) => {
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ]
+  })
   const page = await browser.newPage();
   await page.goto('https://china.nba.com/news/');
   await page.setViewport({
