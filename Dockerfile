@@ -11,4 +11,4 @@ COPY app/ /app/app
 
 RUN yarn install
 
-CMD ["node", "start"]
+CMD ["yarn", "start"]
