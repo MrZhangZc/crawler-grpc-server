@@ -128,9 +128,41 @@ const GetNbaWebNabNews = async (call, callback) => {
   }
 }
 
+const GetJJNews = async (call, callback) => {
+  const browser = await puppeteer.launch({
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ]
+  })
+  const page = await browser.newPage();
+  await page.goto('https://juejin.cn/');
+  await page.setViewport({
+    width: 1920,
+    height: 1080
+  })
+  const res = await page.$$eval('.title-row > a', eles => eles.map(ele => ({
+    href: ele.href,
+    title: ele.innerText,
+    data_id: ele.href.slice(23),
+    type: 'it',
+    from: 'juejin'
+  })))
+  console.log(res)
+  await browser.close();
+  let err = null
+  callback(err, { data: 'success' });
+  for(let news of res){
+    const sql = 'INSERT INTO crawler("type", "title", "href", "data_id", "from") VALUES($1, $2, $3, $4, $5)'
+    const values = [news.type, news.title, news.href, news.data_id, news.from]
+    await __pgQuery(sql, values)
+  }
+}
+
 module.exports = {
   ScreenShot,
   GetHpNabNews,
   GetShNabNews,
-  GetNbaWebNabNews
+  GetNbaWebNabNews,
+  GetJJNews
 }

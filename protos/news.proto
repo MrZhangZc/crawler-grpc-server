@@ -6,6 +6,7 @@ service News {
   rpc GetHpNabNews (GetNewsReq) returns (Reply) {};
   rpc GetShNabNews(GetNewsReq) returns (Reply) {};
   rpc GetNbaWebNabNews(GetNewsReq) returns (Reply) {};
+  rpc GetJJNews(GetNewsReq) returns (Reply) {};
 }
 
 message ScreenShotReq {
